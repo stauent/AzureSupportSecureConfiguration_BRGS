@@ -1,0 +1,49 @@
+﻿{
+  "ApplicationSecrets": {
+    "UserName": "Azure Key Vault - Brilliant User!",
+    "ConnectionStrings": [
+      {
+        "Name": "FileLogger",
+        "Value": "YOUR INSTRUMENTATION KEY GOES HERE",
+        "Description": "Instrumentation key for application insights",
+        "Metadata": "",
+        "Category": "File"
+      },
+      {
+        "Name": "BlobStorage",
+        "Value": "YOUR BLOB STORAGE CONNECTION STRING GOES HERE",
+        "Description": "Connection to blob storage",
+        "Metadata": "YOUR CONTAINER NAME GOES HERE",
+        "Category": "File"
+      },
+      {
+        "Name": "RegisterClientPublisher",
+        "Value": "YOUR SERVICE BUS CONNECTION STRING GOES HERE",
+        "Description": "KV:Provides details about the bus endpoint publishing messages related to registering a client",
+        "Metadata": "{\"Topic\": \"YOUR TOPIC NAME GOES HERE\"}",
+        "Category": "Message"
+      },
+      {
+        "Name": "RegisterClientSubscriber",
+        "Value": "YOUR SERVICE BUS CONNECTION STRING GOES HERE",
+        "Description": "KV:Provides details about the bus endpoint subscription we're listening to for messages",
+        "Metadata": "{\"Topic\": \"YOUR TOPIC NAME GOES HERE\",\"Subscription\": \"YOUR SUBSCRIPTION NAME GOES HERE\"}",
+        "Category": "Message"
+      },
+      {
+        "Name": "AdventureWorks2017",
+        "Value": "Data Source = AzureDB; Initial Catalog = AdventureWorks2017; Persist Security Info = True; User ID = GoodUserID; Password=GoodPassword;",
+        "Description": "Microsoft's sample database",
+        "Metadata": "",
+        "Category": "Database"
+      },
+      {
+        "Name": "Novus",
+        "Value": "URL=https:\\abc.movus.com;",
+        "Description": "Apikey used to access Novus service",
+        "Metadata": "ApiKey=abc55de3;ApiSecret=mySecret;",
+        "SecretType": "ApiKey"
+      }
+    ]
+  }
+}
