@@ -3,6 +3,8 @@ using FileStorageFacade;
 using ServiceBusFacade;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AzureSupportSecureConfiguration
@@ -53,19 +55,20 @@ namespace AzureSupportSecureConfiguration
         /// <returns></returns>
         internal async Task DoWork()
         {
+            // Publish a bunch of messages to the message bus
             foreach (RegisterClientRequest request in requests)
             {
                 await request.Publish(_messsageBus, "RegisterClientPublisher", "RegisterClientSubscriber");
             }
 
-            //// Write a file to storage and then get it back again
-            //await _storage.CopyTo("D:\\BGRS\\Junk\\junk.txt", "copyJunk.txt");
-            //await _storage.CopyFrom("D:\\BGRS\\Junk\\copyJunk.txt", "copyJunk.txt");
+            // Write a file to storage and then get it back again
+            await _storage.CopyTo("C:\\BGRS\\Junk\\junk.txt", "copyJunk.txt");
+            await _storage.CopyFrom("C:\\BGRS\\Junk\\copyJunk.txt", "copyJunk.txt");
 
-            //bool areEquals = System.IO.File.ReadLines($"D:\\BGRS\\Junk\\junk.txt").SequenceEqual(System.IO.File.ReadLines($"D:\\BGRS\\Junk\\copyJunk.txt"));
+            bool areEquals = System.IO.File.ReadLines($"C:\\BGRS\\Junk\\junk.txt").SequenceEqual(System.IO.File.ReadLines($"C:\\BGRS\\Junk\\copyJunk.txt"));
 
-            //$"Comparing both files we find that areEquals = {areEquals}".TraceInformation();
-            //File.Delete($"D:\\BGRS\\Junk\\copyJunk.txt");
+            $"Comparing both files we find that areEquals = {areEquals}".TraceInformation();
+            File.Delete($"C:\\BGRS\\Junk\\copyJunk.txt");
         }
     }
 }
