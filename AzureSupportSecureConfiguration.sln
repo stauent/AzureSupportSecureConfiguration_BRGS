@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationAssistant", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageFacade", "FileStorageFacade\FileStorageFacade.csproj", "{C4F44915-86F6-408E-90C0-BA9014C88D85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBusFacade", "ServiceBusFacade\ServiceBusFacade.csproj", "{52ABA310-1C96-469D-952C-A8B12006DCB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusFacade", "ServiceBusFacade\ServiceBusFacade.csproj", "{52ABA310-1C96-469D-952C-A8B12006DCB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheFacade", "CacheFacade\CacheFacade.csproj", "{A95AA7A0-67FF-4C53-B5A3-25E3CBC7DA17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{52ABA310-1C96-469D-952C-A8B12006DCB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52ABA310-1C96-469D-952C-A8B12006DCB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52ABA310-1C96-469D-952C-A8B12006DCB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A95AA7A0-67FF-4C53-B5A3-25E3CBC7DA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A95AA7A0-67FF-4C53-B5A3-25E3CBC7DA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A95AA7A0-67FF-4C53-B5A3-25E3CBC7DA17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A95AA7A0-67FF-4C53-B5A3-25E3CBC7DA17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

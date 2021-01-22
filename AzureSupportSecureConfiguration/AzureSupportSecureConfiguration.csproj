@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CacheFacade\CacheFacade.csproj" />
     <ProjectReference Include="..\ConfigurationAssistant\ConfigurationAssistant.csproj" />
     <ProjectReference Include="..\FileStorageFacade\FileStorageFacade.csproj" />
     <ProjectReference Include="..\ServiceBusFacade\ServiceBusFacade.csproj" />

@@ -9,6 +9,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using FileStorageFacade;
 using ServiceBusFacade;
+using CacheFacade;
 
 namespace AzureSupportSecureConfiguration
 {
@@ -34,8 +35,10 @@ namespace AzureSupportSecureConfiguration
         {
             // Register the appropriate interfaces depending on the environment
             bool useKeyVaultKey = !string.IsNullOrEmpty(sections.appIntialConfig.KeyVaultKey);
+
             ConfigureFileStorage.Initialize(useKeyVaultKey, services);
             ConfigureServiceBus.Initialize(useKeyVaultKey, services);
+            ConfigureApplicationCache.Initialize(useKeyVaultKey, services);
         }
     }
 }
