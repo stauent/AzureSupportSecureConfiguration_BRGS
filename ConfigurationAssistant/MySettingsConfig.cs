@@ -393,8 +393,6 @@ namespace ConfigurationAssistant
                     builder = new ConfigurationBuilder();
 
                 builder.SetBasePath(Directory.GetCurrentDirectory());
-                    //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    //.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
 
                 // Bind the configuration properties to the properties in the SettingsConfig object
                 var initialConfig = builder.Build();
@@ -415,9 +413,6 @@ namespace ConfigurationAssistant
                 {
                     builder.AddAzureKeyVault(_appSetupConfig.KeyVaultName);
                 }
-
-                // Environment variables override all other sources for any setting
-                //builder.AddEnvironmentVariables();
 
                 // Build the final configuration
                 _baseConfiguration = builder.Build();

@@ -11,16 +11,16 @@
       },
       {
         "Name": "FileLogger",
-        "Value": "YOUR INSTRUMENTATION KEY GOES HERE",
+        "Value": "9acb3786-1aef-4755-9248-6a2613556e69",
         "Description": "Instrumentation key for application insights",
         "Metadata": "",
         "Category": "File"
       },
       {
         "Name": "BlobStorage",
-        "Value": "YOUR CONNECTION STRING GOES HERE",
+        "Value": "DefaultEndpointsProtocol=https;AccountName=reloaccessdemostorage;AccountKey=Pa0nqokgToLWprjs/cCj5CQtQvKw7r8WD1/zT5gmCoeKJ+OzDqW36F5JHgIIXvRNG/bEawUWQlLYkqKUYoIibQ==;EndpointSuffix=core.windows.net",
         "Description": "Connection to blob storage",
-        "Metadata": "YOUR CONTAINER NAME GOES HERE",
+        "Metadata": "reloaccessdemostorage-container1",
         "Category": "File"
       },
       {
@@ -32,21 +32,21 @@
       },
       {
         "Name": "RegisterClientPublisher",
-        "Value": "YOUR CONNECTION STRING GOES HERE",
+        "Value": "Endpoint=sb://keyvault-demo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jFtLxy3O6irYwhdlZhZjmba8ocjEy/L1qSdSAg2yzvo=",
         "Description": "KV:Provides details about the bus endpoint publishing messages related to registering a client",
-        "Metadata": "{\"Topic\": \"YOUR TOPIC GOES HERE\"}",
+        "Metadata": "{\"Topic\": \"brg.reloaccess.registerclient.request\"}",
         "Category": "Message"
       },
       {
         "Name": "RegisterClientSubscriber",
         "Value": "Endpoint=sb://keyvault-demo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jFtLxy3O6irYwhdlZhZjmba8ocjEy/L1qSdSAg2yzvo=",
         "Description": "KV:Provides details about the bus endpoint subscription we're listening to for messages",
-        "Metadata": "{\"Topic\": \"YOUR TOPIC NAME GOES HERE\",\"Subscription\": \"YOUR SUBSCRIPTION NAME GOES HERE\"}",
+        "Metadata": "{\"Topic\": \"brg.reloaccess.registerclient.request\",\"Subscription\": \"brg.reloaccess.registerclient.request\"}",
         "Category": "Message"
       },
       {
         "Name": "ApplicationCache",
-        "Value": "YOUR CONNECTION STRING GOES HERE",
+        "Value": "reloaccess-demo.redis.cache.windows.net:6380,password=fIQZSiHviXQbQpUtFprlJMU5UoH7n5Trpsf6R3yLiH4=,ssl=True,abortConnect=False",
         "Description": "KV:Connection string used to connect to Azure Redis Cache",
         "Metadata": "",
         "Category": "Cache"

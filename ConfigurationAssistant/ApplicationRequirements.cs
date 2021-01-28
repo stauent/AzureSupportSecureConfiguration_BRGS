@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -21,6 +23,7 @@ namespace ConfigurationAssistant
         IApplicationSecrets applicationSecrets { get; set; }
         IConfiguration ApplicationConfiguration { get; set; }
         IApplicationSetupConfiguration ApplicationSetupConfiguration { get; set; }
+        IHostEnvironment HostEnvironment { get; set; }
     }
 
     /// <summary>
@@ -35,8 +38,9 @@ namespace ConfigurationAssistant
         public IApplicationSecrets applicationSecrets { get; set; }
         public IConfiguration ApplicationConfiguration { get; set; }
         public IApplicationSetupConfiguration ApplicationSetupConfiguration { get; set; }
+        public IHostEnvironment HostEnvironment { get; set; }
 
-        public ApplicationRequirements(ILogger<T> applicationLogger, IApplicationSecrets applicationSecrets, IConfiguration applicationConfiguration, IApplicationSetupConfiguration applicationSetupConfiguration)
+        public ApplicationRequirements(ILogger<T> applicationLogger, IApplicationSecrets applicationSecrets, IConfiguration applicationConfiguration, IApplicationSetupConfiguration applicationSetupConfiguration, IHostEnvironment hostEnvironment)
         {
             try
             {
@@ -44,6 +48,9 @@ namespace ConfigurationAssistant
                 this.ApplicationLogger = applicationLogger;
                 this.ApplicationConfiguration = applicationConfiguration;
                 this.ApplicationSetupConfiguration = applicationSetupConfiguration;
+                this.HostEnvironment = hostEnvironment;
+
+                TraceLoggerExtension._HostEnvironment = hostEnvironment;
                 TraceLoggerExtension._Logger = applicationLogger;
                 TraceLoggerExtension._SerializationFormat = applicationSetupConfiguration.SerializationFormat;
             }
@@ -62,6 +69,10 @@ namespace ConfigurationAssistant
     public static class TraceLoggerExtension
     {
         private static ILogger _logger = null;
+        private static IHostEnvironment _hostingEnvironment = null;
+        private static string _applicationName = "";
+        private static string _environmentName = "";
+
         public static ILogger _Logger
         {
             get { return (_logger);}
@@ -72,27 +83,58 @@ namespace ConfigurationAssistant
             }
         }
 
+        public static IHostEnvironment _HostEnvironment
+        {
+            get { return (_hostingEnvironment); }
+            set
+            {
+                if (_hostingEnvironment == null)
+                    _hostingEnvironment = value;
+            }
+        }
+
+        
+        public static string GetApplicationName()
+        {
+            if (string.IsNullOrEmpty(_applicationName))
+            {
+                if (_hostingEnvironment != null)
+                    _applicationName = _hostingEnvironment.ApplicationName;
+            }
+            return (_applicationName);
+        }
+
+        public static string GetEnvironmentName()
+        {
+            if (string.IsNullOrEmpty(_environmentName))
+            {
+                if (_hostingEnvironment != null)
+                    _environmentName = _hostingEnvironment.EnvironmentName;
+            }
+            return (_environmentName);
+        }
+
         public static ObjectSerializationFormat _SerializationFormat { get; set; } = ObjectSerializationFormat.Json;
 
         public static void TraceInformation(this object objectToTrace, string message = null, [CallerLineNumber] int LineNumber = 0, [CallerMemberName] string MethodName = null, [CallerFilePath] string FileName = null)
         {
-            _Logger?.LogInformation($"\r\n\t{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
+            _Logger?.LogInformation($"\r\n\t{Environment.MachineName}:{GetApplicationName()}:{GetEnvironmentName()}:{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
         }
         public static void TraceCritical(this object objectToTrace, string message = null, [CallerLineNumber] int LineNumber = 0, [CallerMemberName] string MethodName = null, [CallerFilePath] string FileName = null)
         {
-            _Logger?.LogCritical($"\r\n\t{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
+            _Logger?.LogCritical($"\r\n\t{Environment.MachineName}:{GetApplicationName()}:{GetEnvironmentName()}:{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
         }
         public static void TraceDebug(this object objectToTrace, string message = null, [CallerLineNumber] int LineNumber = 0, [CallerMemberName] string MethodName = null, [CallerFilePath] string FileName = null)
         {
-            _Logger?.LogDebug($"\r\n\t{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
+            _Logger?.LogDebug($"\r\n\t{Environment.MachineName}:{GetApplicationName()}:{GetEnvironmentName()}:{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
         }
         public static void TraceError(this object objectToTrace, string message = null, [CallerLineNumber] int LineNumber = 0, [CallerMemberName] string MethodName = null, [CallerFilePath] string FileName = null)
         {
-            _Logger?.LogError($"\r\n\t{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
+            _Logger?.LogError($"\r\n\t{Environment.MachineName}:{GetApplicationName()}:{GetEnvironmentName()}:{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
         }
         public static void TraceWarning(this object objectToTrace, string message = null, [CallerLineNumber] int LineNumber = 0, [CallerMemberName] string MethodName = null, [CallerFilePath] string FileName = null)
         {
-            _Logger?.LogWarning($"\r\n\t{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
+            _Logger?.LogWarning($"\r\n\t{Environment.MachineName}:{GetApplicationName()}:{GetEnvironmentName()}:{ExtractFileName(FileName)}:{MethodName}:{LineNumber} {message ?? ""}\r\n\t{ConvertToString(objectToTrace)}");
         }
 
         public static string ExtractFileName(string FilePath)

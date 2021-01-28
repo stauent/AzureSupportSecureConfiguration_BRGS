@@ -76,6 +76,10 @@ namespace ConfigurationAssistant
                         {
                             return (appSecrets);
                         })
+                        .AddSingleton<IHostEnvironment>(sp =>
+                        {
+                            return (hostingContext.HostingEnvironment);
+                        })
                         .AddSingleton<IApplicationRequirements<TApp>, ApplicationRequirements<TApp>>();
 
                     services.BuildServiceProvider();
