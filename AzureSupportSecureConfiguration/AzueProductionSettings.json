@@ -18,12 +18,12 @@
       },
       {
         "Name": "BlobStorage",
-        "Value": "DefaultEndpointsProtocol=https;AccountName=reloaccessdemostorage;AccountKey=Pa0nqokgToLWprjs/cCj5CQtQvKw7r8WD1/zT5gmCoeKJ+OzDqW36F5JHgIIXvRNG/bEawUWQlLYkqKUYoIibQ==;EndpointSuffix=core.windows.net",
+        "Value": "DefaultEndpointsProtocol=https;AccountName=reloaccessdemostorage;AccountKey=[YOUR VALUE GOES HERE]EndpointSuffix=core.windows.net",
         "Description": "Connection to blob storage",
         "MetaDataProperties": [
           {
             "Name": "ContainerName",
-            "Value": "reloaccessdemostorage-container1"
+            "Value": "[YOUR VALUE GOES HERE]"
           }
         ],
         "Category": "File"
@@ -46,35 +46,35 @@
       },
       {
         "Name": "RegisterClientPublisher",
-        "Value": "Endpoint=sb://keyvault-demo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jFtLxy3O6irYwhdlZhZjmba8ocjEy/L1qSdSAg2yzvo=",
+        "Value": "[YOUR VALUE GOES HERE]",
         "Description": "KV:Provides details about the bus endpoint publishing messages related to registering a client",
         "MetaDataProperties": [
           {
             "Name": "Topic",
-            "Value": "brg.reloaccess.registerclient.request"
+            "Value": "[YOUR VALUE GOES HERE]"
           }
         ],
         "Category": "Message"
       },
       {
         "Name": "RegisterClientSubscriber",
-        "Value": "Endpoint=sb://keyvault-demo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jFtLxy3O6irYwhdlZhZjmba8ocjEy/L1qSdSAg2yzvo=",
+        "Value": "[YOUR VALUE GOES HERE]",
         "Description": "KV:Provides details about the bus endpoint subscription we're listening to for messages",
         "MetaDataProperties": [
           {
             "Name": "Topic",
-            "Value": "brg.reloaccess.registerclient.request"
+            "Value": "[YOUR VALUE GOES HERE]"
           },
           {
             "Name": "Subscription",
-            "Value": "brg.reloaccess.registerclient.request"
+            "Value": "[YOUR VALUE GOES HERE]"
           }
         ],
         "Category": "Message"
       },
       {
         "Name": "ApplicationCache",
-        "Value": "reloaccess-demo.redis.cache.windows.net:6380,password=fIQZSiHviXQbQpUtFprlJMU5UoH7n5Trpsf6R3yLiH4=,ssl=True,abortConnect=False",
+        "Value": "[YOUR VALUE GOES HERE]",
         "Description": "KV:Connection string used to connect to Azure Redis Cache",
         "MetaDataProperties": [],
         "Category": "Cache"
