@@ -78,11 +78,11 @@ namespace AzureSupportSecureConfiguration
             // the same data from the RedisCache. This is a persisted/distributed cache.
 
             RegisterClientRequest request = null;
-            List<string> cacheKeys = new List<string> {"Tom", "Bob", "Albert"};
+            List<string> cacheKeys = new List<string> { "Tom", "Bob", "Albert" };
             foreach (string key in cacheKeys)
             {
                 request = _applicationCache.GetCachedObject<RegisterClientRequest>(key);
-                if(request == null)
+                if (request == null)
                 {
                     // This simulates reading the data from some location that takes a lot of time
                     request = (from r in requests where r.ConsultantName.StartsWith(key) select r).FirstOrDefault();

@@ -13,6 +13,7 @@ namespace FileStorageFacade
     /// </summary>
     public class BlobFileStorage : IFileStorageFacade
     {
+        private readonly string ContainerName = "ContainerName";
         private readonly IApplicationSecrets _applicationSecrets;
         public BlobFileStorage(IApplicationSecrets applicationSecrets)
         {
@@ -24,7 +25,7 @@ namespace FileStorageFacade
             // Uses the IApplicationSecrets interface to retrieve all the data related to the secret "BlobStorage"  
             IApplicationSecretsConnectionStrings secret = _applicationSecrets.Secret("BlobStorage");
             string blobConnectionString = secret.Value;
-            string containerName = secret.Metadata;
+            string containerName = secret[ContainerName];
 
             // Create a BlobServiceClient object which will be used to get a container 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobConnectionString);

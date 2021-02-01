@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace ServiceBusFacade
 {
@@ -27,9 +28,7 @@ namespace ServiceBusFacade
                 IApplicationSecretsConnectionStrings publisher = _applicationSecrets.Secret(message.Recipient);
 
                 // Create a sender for the topic
-                JObject publisherMetadata = JObject.Parse(publisher.Metadata);
-                JToken topicNameToken = publisherMetadata.GetValue(Topic);
-                string topicName = topicNameToken.ToString();
+                string topicName = publisher[Topic];
                 string connectionString = publisher.Value;
                 Message serviceBusMessage = new Message(Encoding.UTF8.GetBytes(message.ToString()));
 
@@ -49,14 +48,8 @@ namespace ServiceBusFacade
             IApplicationSecretsConnectionStrings subscriber = _applicationSecrets.Secret(endpointName);
             string connectionString = subscriber.Value;
 
-            // Get the connection string from the secret metadata
-            JObject subscriberMetadata = JObject.Parse(subscriber.Metadata);
-
-            JToken topicNameToken = subscriberMetadata.GetValue(Topic);
-            string topicName = topicNameToken.ToString();
-
-            JToken subscriptionNameToken = subscriberMetadata.GetValue(Subscription);
-            string subscriptionName = subscriptionNameToken.ToString();
+            string topicName = subscriber[Topic];
+            string subscriptionName = subscriber[Subscription];
 
             string path = EntityNameHelper.FormatSubscriptionPath(topicName, subscriptionName);
             var receiver = new MessageReceiver(connectionString, path);
