@@ -64,6 +64,7 @@ namespace ConfigurationAssistant
             get { return (_appSetupConfig); }
         }
         private static IApplicationSetupConfiguration _appSetupConfig { get; set; }
+        private static IRedisCache _cache { get; set; }
 
         /// <summary>
         /// Provides the user the opportunity to initialize the user configuration
@@ -126,8 +127,12 @@ namespace ConfigurationAssistant
                 {
                 }
 
-                if (!string.IsNullOrEmpty(_appSetupConfig.KeyVaultName))
+                if (!string.IsNullOrEmpty(_appSetupConfig.KeyVaultName) && !string.IsNullOrEmpty(_appSetupConfig.KeyVaultKey))
                 {
+                    // Substitute the runtime environment name in the keyvault properties
+                    _appSetupConfig.KeyVaultName = _appSetupConfig.KeyVaultName.Replace("{RTE}", _appSetupConfig.RTE);
+                    _appSetupConfig.KeyVaultKey = _appSetupConfig.KeyVaultKey.Replace("{RTE}", _appSetupConfig.RTE);
+
                     builder.AddAzureKeyVault(_appSetupConfig.KeyVaultName);
                 }
 
@@ -138,6 +143,14 @@ namespace ConfigurationAssistant
                 // grab it from appsettings.json/secrets.json
                 retVal.appSecrets = InitializeApplicationSecrets(_baseConfiguration, _appSetupConfig);
                 retVal.appIntialConfig = _appSetupConfig;
+
+                // Use the KeyVault secrets connect to redis cache
+                _cache = _baseConfiguration.InitializeRedisCache(retVal.appSecrets);
+
+                // Set up automated refresh from redis cache. "TimedCacheRefresh" configuration
+                // setting determines which keys are read from the cache and how often they are read.
+                // These values are then placed as regular values that can be read from IConfiguration
+                _cache?.RefreshConfigurationFromCache(retVal.appSecrets, _baseConfiguration);
 
                 // Save the configuration so we don't have to create it again
                 AddUserConfiguration(AssemblyName, retVal);
